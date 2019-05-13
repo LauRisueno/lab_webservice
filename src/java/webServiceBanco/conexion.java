@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  */
 public class conexion {
    Connection Conn = null;
-    String url = "jdbc:postgresql://localhost:5432/";
+    String url = "jdbc:postgresql://localhost:5432/banco";
     String user = "postgres";
     String password = "Mnovember@23";
     

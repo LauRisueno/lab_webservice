@@ -33,7 +33,7 @@ public class WSBanco {
      * Web service operation
      */
     public Double getCotizacion(String fecha) throws SQLException {
-        double value = 0.0;
+        double valor = 0.0;
         try {
         conndbc = dbc.databaseConn();
         String sql = "SELECT *FROM cotizacion where fecha='"+fecha+"'";
@@ -42,23 +42,28 @@ public class WSBanco {
         while(rst.next()){
             int id_cotizacion = Integer.parseInt(rst.getString("id_cotizacion"));
             String fecha_cotizacion = rst.getString("fecha");
-            double valor = Double.parseDouble(rst.getString("valor"));
-            value = valor;
+            valor = Double.parseDouble(rst.getString("valor"));
         }
         
         } catch (SQLException ex) {
             Logger.getLogger(WSBanco.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        return value;
+        return valor;
     }
 
     /**
      * Web service operation
      */
-    public Boolean setCotizacion(String fecha, double valor) {
+    public Boolean setCotizacion(String fecha, double valor) throws SQLException {
         String sql ="INSERT INTO cotizacion (fecha,valor) VALUES('"+fecha+"',"+valor+")";
-        Statement statement = (Statement) conndbc.createStatement();
-        statement.executeUpdate (sql);
+        Statement statement = null;
+        try {
+            statement = (Statement) conndbc.createStatement();
+            statement.executeUpdate (sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(WSBanco.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return true;
     }
      
